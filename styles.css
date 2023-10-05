@@ -1,187 +1,201 @@
+/* Global styles */
 *, *::after, *::before {
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
-  }
-  
-  body {
-    background-color: rgb(25, 25, 26);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    padding: 1em;
-    font-size: clamp(.5rem, 2.5vmin, 1.5rem);
-  }
-  
-  .keyboard {
-    display: grid;
-    grid-template-columns: repeat(20, minmax(auto, 1.25em));
-    grid-auto-rows: 3em;
-    gap: .25em;
-    justify-content: center;
-  }
-  
-  .key {
-    font-size: inherit;
-    grid-column: span 2;
-    border: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-    color: rgb(28, 28, 28);
-    fill: rgb(28, 28, 28);
-    text-transform: uppercase;
-    border-radius: .25em;
-    cursor: pointer;
-    user-select: none;
-  }
-  
-  .key.large {
-    grid-column: span 3;
-  }
-  
-  .key > svg {
-    width: 1.75em;
-    height: 1.75em;
-  }
-  
-  .key:hover, .key:focus {
-    --lightness-offset: 10%;
-  }
-  
-  .key.wrong {
-    --lightness: 23%;
-  }
-  
-  .key.wrong-location {
-    --hue: 49;
-    --saturation: 51%;
-    --lightness: 47%;
-  }
-  
-  .key.correct {
-    --hue: 115;
-    --saturation: 29%;
-    --lightness: 43%;
-  }
-  
-  .guess-grid {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    flex-grow: 1;
-    grid-template-columns: repeat(5, 4em);
-    grid-template-rows: repeat(6, 4em);
-    gap: .25em;
-    margin-bottom: 1em;
-  }
-  
-  .tile {
-    font-size: 2em;
-    color: white;
-    border: .05em solid hsl(240, 2%, 18%);
-    text-transform: uppercase;
-    font-weight: bold;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    transition: transform 250ms linear;
-  }
-  
-  .tile[data-state="active"] {
-    border-color: hsl(200, 1%, 34%);
-  }
-  
-  /* show the tiles data states correctly - 
-  shade of green - given that the letter and placement both are correct 
-  shade of yellow - letter exists in the word but is not in the correct position currently 
-  */
-  
-  .tile.shake {
-    animation: shake 250ms ease-in-out;
-  }
-  
-  .tile.dance {
-    animation: dance 500ms ease-in-out;
-  }
-  
-  .tile.flip {
-    transform: rotateX(90deg);
-  }
-  
-  @keyframes shake {
-    10% {
-      transform: translateX(-5%);
-    }
-  
-    30% {
-      transform: translateX(5%);
-    }
-  
-    50% {
-      transform: translateX(-7.5%);
-    }
-  
-    70% {
-      transform: translateX(7.5%);
-    }
-  
-    90% {
-      transform: translateX(-5%);
-    }
-  
-    100% {
-      transform: translateX(0);
-    }
-  }
-  
-  @keyframes dance {
-    20% {
-      transform: translateY(-50%);
-    }  
-  
-    40% {
-      transform: translateY(5%);
-    }  
-  
-    60% {
-      transform: translateY(-25%);
-    }  
-  
-    80% {
-      transform: translateY(2.5%);
-    }  
-  
-    90% {
-      transform: translateY(-5%);
-    }  
-  
-    100% {
-      transform: translateY(0);
-    }
-  }
-  
-  .alert-container {
-    position: fixed;
-    top: 10vh;
-    left: 50vw;
-    transform: translateX(-50%);
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .alert {
-    /* style the alerts following the design structure of the app accordingly resulting in good UI/UX */
-  }
-  
-  .alert:last-child {
-    margin-bottom: 0;
-  }
-  
-  .alert.hide {
-    opacity: 0;
-  }
+/* Body styles */
+body {
+  background-color: #1A1A1C; /* Dark background color */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 1em;
+  font-size: clamp(0.8rem, 2.5vmin, 1.5rem);
+  color: #FFF; /* Text color */
+}
+
+/* Keyboard styles */
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(auto, 1.5em)); /* Wider keys */
+  grid-auto-rows: 3em;
+  gap: .25em;
+  justify-content: center;
+}
+
+/* Key styles */
+.key {
+  font-size: inherit;
+  grid-column: span 2;
+  border: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1C1C1C; /* Dark key text color */
+  background-color: #FFF; /* Light key background color */
+  text-transform: uppercase;
+  border-radius: .5em; /* Rounder keys */
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.key.large {
+  grid-column: span 3;
+}
+
+.key > svg {
+  width: 2em; /* Slightly larger icons */
+  height: 2em;
+}
+
+.key:hover, .key:focus {
+  background-color: #EEE; /* Lighten background on hover */
+  color: #1C1C1C; /* Darken text on hover */
+}
+
+.key.wrong {
+  background-color: #FF5733; /* Red background for wrong keys */
+}
+
+.key.wrong-location {
+  background-color: #FFD700; /* Yellow background for misplaced keys */
+}
+
+.key.correct {
+  background-color: #4CAF50; /* Green background for correct keys */
+}
+
+/* Guess grid styles */
+.guess-grid {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  flex-grow: 1;
+  grid-template-columns: repeat(5, 4em);
+  grid-template-rows: repeat(6, 4em);
+  gap: .25em;
+  margin-bottom: 1em;
+}
+
+/* Tile styles */
+.tile {
+  font-size: 2em;
+  color: #FFF;
+  border: .1em solid hsl(240, 2%, 18%);
+  text-transform: uppercase;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  transition: transform 250ms linear, border-color 0.2s;
+}
+
+.tile[data-state="active"] {
+  border-color: hsl(200, 10%, 50%); /* Lighter border for active tiles */
+}
+
+/* Animation styles */
+.tile.shake {
+  animation: shake 250ms ease-in-out;
+}
+
+.tile.dance {
+  animation: dance 500ms ease-in-out;
+}
+
+.tile.flip {
+  transform: rotateX(90deg);
+}
+
+@keyframes shake {
+  /* Define the shaking animation */
+}
+
+@keyframes dance {
+  /* Define the dancing animation */
+}
+
+/* Alert container styles */
+.alert-container {
+  position: fixed;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Alert styles */
+
+
+.alert:last-child {
+  margin-bottom: 0;
+}
+
+.alert.hide {
+  opacity: 0;
+}
+/* Game over popup styles */
+.game-over-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; /* Higher z-index to display above the game */
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s;
+}
+
+.game-over-popup.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.game-over-text {
+  text-align: center;
+  background-color: #FFD700; /* Yellow background */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  color: #1C1C1C;
+}
+
+.game-over-text h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.score {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.play-again-button {
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 1rem;
+  transition: background-color 0.3s;
+}
+
+.play-again-button:hover {
+  background-color: #45A049; 
+}
